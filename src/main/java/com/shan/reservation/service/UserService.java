@@ -1,6 +1,7 @@
 package com.shan.reservation.service;
 
 import com.shan.reservation.bean.user;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 /**
@@ -9,6 +10,7 @@ import java.util.List;
  * @Description:
  * @date 2019年12月30日 19:25:31
  */
+@Service
 public interface UserService {
     //根据昵称查询用户
     List<user> selectUserByNickName(String nickname);

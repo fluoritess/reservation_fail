@@ -13,13 +13,16 @@ public class food {
 
     private String describe;
 
-    public food(Integer foodId, Integer restaurantId, Double foodPrice, String foodName, Integer categoryId, String describe) {
+    private Integer sales;
+
+    public food(Integer foodId, Integer restaurantId, Double foodPrice, String foodName, Integer categoryId, String describe, Integer sales) {
         this.foodId = foodId;
         this.restaurantId = restaurantId;
         this.foodPrice = foodPrice;
         this.foodName = foodName;
         this.categoryId = categoryId;
         this.describe = describe;
+        this.sales = sales;
     }
 
     public food() {
@@ -72,5 +75,13 @@ public class food {
 
     public void setDescribe(String describe) {
         this.describe = describe == null ? null : describe.trim();
+    }
+
+    public Integer getSales() {
+        return sales;
+    }
+
+    public void setSales(Integer sales) {
+        this.sales = sales;
     }
 }
