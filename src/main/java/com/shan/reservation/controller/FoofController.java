@@ -28,9 +28,8 @@ public class FoofController {
     com.shan.reservation.mapper.foodUtilMapper foodUtilMapper;
     @ResponseBody
     @RequestMapping("/SelectFoodHighestSales" )
-    public R SelectFoodHighestSales(@RequestBody Map<String,String> map){
+    public R SelectFoodHighestSales(){
         List<food> list=foodUtilMapper.SelectFoodHighestSales();
         return R.ok().put("foodlist",list);
-
     }
 }

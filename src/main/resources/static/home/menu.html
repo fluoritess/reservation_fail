@@ -120,7 +120,7 @@
 					<p>基于协同过滤算法将为您推荐最适合您口味的商品！</p>
 				</div>
 			</div>
-			<div class="row">
+			<div class="row" id="food1">
 
 				<div class="col-lg-4 col-md-4 col-sm-6">
 					<a href="images/img_1.jpg" class="fh5co-card-item image-popup">
@@ -129,7 +129,7 @@
 							<img src="images/img_1.jpg" alt="Image" class="img-responsive">
 						</figure>
 						<div class="fh5co-text">
-							<h2>Fresh Mushrooms</h2>
+							<h2 id="h2">Fresh Mushrooms</h2>
 							<p>Far far away, behind the word mountains, far from the countries Vokalia..</p>
 							<p><span class="price cursive-font">$19.15</span></p>
 						</div>
@@ -217,34 +217,34 @@
 					<p>这里的菜品都是本周内销量与口碑综合最高的哦！</p>
 				</div>
 			</div>
-			<div class="row">
+			<div class="row" id="food2">
 
-				<div class="col-lg-4 col-md-4 col-sm-6">
-					<a href="images/img_1.jpg" class="fh5co-card-item image-popup">
-						<figure>
-							<div class="overlay"><i class="ti-plus"></i></div>
-							<img src="images/img_1.jpg" alt="Image" class="img-responsive">
-						</figure>
-						<div class="fh5co-text">
-							<h2>Fresh Mushrooms</h2>
-							<p>Far far away, behind the word mountains, far from the countries Vokalia..</p>
-							<p><span class="price cursive-font">$19.15</span></p>
-						</div>
-					</a>
-				</div>
-				<div class="col-lg-4 col-md-4 col-sm-6">
-					<a href="images/img_2.jpg" class="fh5co-card-item image-popup">
-						<figure>
-							<div class="overlay"><i class="ti-plus"></i></div>
-							<img src="images/img_2.jpg" alt="Image" class="img-responsive">
-						</figure>
-						<div class="fh5co-text">
-							<h2>Cheese and Garlic Toast</h2>
-							<p>Far far away, behind the word mountains, far from the countries Vokalia..</p>
-							<p><span class="price cursive-font">$20.99</span></p>
-						</div>
-					</a>
-				</div>
+				<!--<div class="col-lg-4 col-md-4 col-sm-6">-->
+					<!--<a href="images/img_1.jpg" class="fh5co-card-item image-popup">-->
+						<!--<figure>-->
+							<!--<div class="overlay"><i class="ti-plus"></i></div>-->
+							<!--<img src="images/img_1.jpg" alt="Image" class="img-responsive">-->
+						<!--</figure>-->
+						<!--<div class="fh5co-text">-->
+							<!--<h2>Fresh Mushrooms</h2>-->
+							<!--<p>Far far away, behind the word mountains, far from the countries Vokalia..</p>-->
+							<!--<p><span class="price cursive-font">$19.15</span></p>-->
+						<!--</div>-->
+					<!--</a>-->
+				<!--</div>-->
+				<!--<div class="col-lg-4 col-md-4 col-sm-6">-->
+					<!--<a href="images/img_2.jpg" class="fh5co-card-item image-popup">-->
+						<!--<figure>-->
+							<!--<div class="overlay"><i class="ti-plus"></i></div>-->
+							<!--<img src="images/img_2.jpg" alt="Image" class="img-responsive">-->
+						<!--</figure>-->
+						<!--<div class="fh5co-text">-->
+							<!--<h2>Cheese and Garlic Toast</h2>-->
+							<!--<p>Far far away, behind the word mountains, far from the countries Vokalia..</p>-->
+							<!--<p><span class="price cursive-font">$20.99</span></p>-->
+						<!--</div>-->
+					<!--</a>-->
+				<!--</div>-->
 				<div class="col-lg-4 col-md-4 col-sm-6">
 					<a href="images/img_3.jpg" class="fh5co-card-item image-popup">
 						<figure>
@@ -419,6 +419,44 @@
 	<!-- Main -->
 	<script src="js/main.js"></script>
 
+    <script type="text/javascript">
+        $(function(){
+            $.ajax({
+                type: "GET",
+                url: "/SelectFoodHighestSales",
+                contentType: "application/json; charset=utf-8",
+                data: null,
+                async: false,
+                dataType: "json",
+                success: function (foodlist) {
+                    console.log(foodlist);
+                    console.log(foodlist.foodlist.length);
+                    // $("#food1").append(" <b>追加文本</b>。");
+                    for(var i=0;i<foodlist.foodlist.length;i++){
+                        var foodname=foodlist.foodlist[i].foodName;
+                        var fooddescribe=foodlist.foodlist[i].describe;
+                        var foodPrice=foodlist.foodlist[i].foodPrice;
+                        $("#food2").append("<div class=\"col-lg-4 col-md-4 col-sm-6\">\n" +
+                            "\t\t\t\t\t<a href=\"images/img_1.jpg\" class=\"fh5co-card-item image-popup\">\n" +
+                            "\t\t\t\t\t\t<figure>\n" +
+                            "\t\t\t\t\t\t\t<div class=\"overlay\"><i class=\"ti-plus\"></i></div>\n" +
+                            "\t\t\t\t\t\t\t<img src=\"images/img_1.jpg\" alt=\"Image\" class=\"img-responsive\">\n" +
+                            "\t\t\t\t\t\t</figure>\n" +
+                            "\t\t\t\t\t\t<div class=\"fh5co-text\">\n" +
+                            "\t\t\t\t\t\t\t<h2>"+foodname+"</h2>\n" +
+                            "\t\t\t\t\t\t\t<p>"+fooddescribe+"</p>\n" +
+                            "\t\t\t\t\t\t\t<p><span class=\"price cursive-font\">¥"+foodPrice+"</span></p>\n" +
+                            "\t\t\t\t\t\t</div>\n" +
+                            "\t\t\t\t\t</a>\n" +
+                            "\t\t\t\t</div>");
+                    }
+                },
+                error: function (message) {
+                    $("#request-process-patent").html("获取数据失败！");
+                }
+            });
+        });
+    </script>
 	</body>
 </html>
 
